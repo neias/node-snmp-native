@@ -1,14 +1,5 @@
-                                                                 __
-                                                                /\ \__  __
-      ____    ___     ___ ___   _____              ___      __  \ \ ,_\/\_\   __  __     __
-     /',__\ /' _ `\ /' __` __`\/\ '__`\  _______ /' _ `\  /'__`\ \ \ \/\/\ \ /\ \/\ \  /'__`\
-    /\__, `\/\ \/\ \/\ \/\ \/\ \ \ \L\ \/\______\/\ \/\ \/\ \L\.\_\ \ \_\ \ \\ \ \_/ |/\  __/
-    \/\____/\ \_\ \_\ \_\ \_\ \_\ \ ,__/\/______/\ \_\ \_\ \__/.\_\\ \__\\ \_\\ \___/ \ \____\
-     \/___/  \/_/\/_/\/_/\/_/\/_/\ \ \/           \/_/\/_/\/__/\/_/ \/__/ \/_/ \/__/   \/____/
-                                  \ \_\
-                                   \/_/
 
-snmp-native  [![Build Status](https://secure.travis-ci.org/calmh/node-snmp-native.png)](http://travis-ci.org/calmh/node-snmp-native)
+snmp-native  [![Build Status](https://travis-ci.org/neias/snmp-node.svg?branch=master)](https://travis-ci.org/neias/snmp-node)
 ===========
 
 This is a native SNMP library for Node.js. The purpose is to provide enough
@@ -261,4 +252,3 @@ License
 =======
 
 MIT
-

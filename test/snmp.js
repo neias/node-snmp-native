@@ -24,183 +24,183 @@ var ex9 = new Buffer('30 36 02 01 01 04 07 70 72 69 76 61 74 65 a2 28 02 04 45 2
 var ex10 = new Buffer('30 82 00 61 02 01 01 04 06 70 75 62 6c 69 63 a2 82 00 52 02 04 2a 96 a4 01 02 01 00 02 01 00 30 82 00 42 30 82 00 1f 06 82 00 08 2b 06 01 02 01 01 05 00 04 11 44 6f 63 75 50 72 69 6e 74 20 43 4d 32 30 35 20 66 30 82 00 1b 06 82 00 0b 2b 06 01 02 01 2b 05 01 01 11 01 04 0a 57 46 47 2d 30 31 33 34 37 35'.replace(/ /g, ''), 'hex');
 
 describe('snmp', function () {
-    describe('encode()', function () {
-        it('returns a correctly formatted buffer from a packet description', function () {
-            var correct = '30 2c 02 01 01 04 07 70 72 69 76 61 74 65 a0 1e 02 01 05 02 01 06 02 01 07 30 13 30 11 06 0d 2b 06 01 04 01 94 78 01 02 07 03 02 00 05 00'.replace(/ /g, '');
-            var pkt = new snmp.Packet(); // A default getrequest
-            pkt.community = 'private';
-            pkt.pdu.reqid = 5;
-            pkt.pdu.error = 6;
-            pkt.pdu.errorIndex = 7;
-            pkt.pdu.varbinds[0].oid = [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0];
-            var msg = snmp.encode(pkt);
-            assert.equal(msg.toString('hex'), correct);
-        });
-        it('returns a correctly formatted buffer from a packet description of a set request', function () {
-            var correct = '302d 0201 0104 0770 7269 7661 7465 a31f 0204 380b b460 0201 0002 0100 3011 300f 060a 2b06 0102 0102 0201 0701 0201 02'.replace(/ /g, '');
-            var pkt = new snmp.Packet(); // A default getrequest
-            pkt.community = 'private';
-            pkt.pdu.reqid = 940291168;
-            pkt.pdu.type = 3;
-            pkt.pdu.varbinds[0].oid = [1, 3, 6, 1, 2, 1, 2, 2, 1, 7, 1];
-            pkt.pdu.varbinds[0].type = 2;
-            pkt.pdu.varbinds[0].value = 2;
-            var msg = snmp.encode(pkt);
-            assert.equal(msg.toString('hex'), correct);
-        });
-        it('returns a correctly formatted buffer from a NoSuchObject packet', function () {
-            var correct = '302c 0201 0104 0770 7269 7661 7465 a01e 0201 0502 0106 0201 0730 1330 1106 0d2b 0601 0401 9478 0102 0703 0200 8000'.replace(/ /g, '');
-            var pkt = new snmp.Packet(); // A default getrequest
-            pkt.community = 'private';
-            pkt.pdu.reqid = 5;
-            pkt.pdu.error = 6;
-            pkt.pdu.errorIndex = 7;
-            pkt.pdu.varbinds = [{
-                type: 0x80,
-                oid: [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0]
-            }];
-            var msg = snmp.encode(pkt);
-            assert.equal(msg.toString('hex'), correct);
-        });
-        it('returns a correctly formatted buffer from a NoSuchInstance packet', function () {
-            var correct = '302c 0201 0104 0770 7269 7661 7465 a01e 0201 0502 0106 0201 0730 1330 1106 0d2b 0601 0401 9478 0102 0703 0200 8100'.replace(/ /g, '');
-            var pkt = new snmp.Packet(); // A default getrequest
-            pkt.community = 'private';
-            pkt.pdu.reqid = 5;
-            pkt.pdu.error = 6;
-            pkt.pdu.errorIndex = 7;
-            pkt.pdu.varbinds = [{
-                type: 0x81,
-                oid: [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0]
-            }];
-            var msg = snmp.encode(pkt);
-            assert.equal(msg.toString('hex'), correct);
-        });
-        it('returns a correctly formatted buffer from a NoSuchObject packet', function () {
-            var correct = '302c 0201 0104 0770 7269 7661 7465 a01e 0201 0502 0106 0201 0730 1330 1106 0d2b 0601 0401 9478 0102 0703 0200 8200'.replace(/ /g, '');
-            var pkt = new snmp.Packet(); // A default getrequest
-            pkt.community = 'private';
-            pkt.pdu.reqid = 5;
-            pkt.pdu.error = 6;
-            pkt.pdu.errorIndex = 7;
-            pkt.pdu.varbinds = [{
-                type: 0x82,
-                oid: [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0]
-            }];
-            var msg = snmp.encode(pkt);
-            assert.equal(msg.toString('hex'), correct);
-        });
+  describe('encode()', function () {
+    it('returns a correctly formatted buffer from a packet description', function () {
+      var correct = '30 2c 02 01 01 04 07 70 72 69 76 61 74 65 a0 1e 02 01 05 02 01 06 02 01 07 30 13 30 11 06 0d 2b 06 01 04 01 94 78 01 02 07 03 02 00 05 00'.replace(/ /g, '');
+      var pkt = new snmp.Packet(); // A default getrequest
+      pkt.community = 'private';
+      pkt.pdu.reqid = 5;
+      pkt.pdu.error = 6;
+      pkt.pdu.errorIndex = 7;
+      pkt.pdu.varbinds[0].oid = [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0];
+      var msg = snmp.encode(pkt);
+      assert.equal(msg.toString('hex'), correct);
     });
+    it('returns a correctly formatted buffer from a packet description of a set request', function () {
+      var correct = '302d 0201 0104 0770 7269 7661 7465 a31f 0204 380b b460 0201 0002 0100 3011 300f 060a 2b06 0102 0102 0201 0701 0201 02'.replace(/ /g, '');
+      var pkt = new snmp.Packet(); // A default getrequest
+      pkt.community = 'private';
+      pkt.pdu.reqid = 940291168;
+      pkt.pdu.type = 3;
+      pkt.pdu.varbinds[0].oid = [1, 3, 6, 1, 2, 1, 2, 2, 1, 7, 1];
+      pkt.pdu.varbinds[0].type = 2;
+      pkt.pdu.varbinds[0].value = 2;
+      var msg = snmp.encode(pkt);
+      assert.equal(msg.toString('hex'), correct);
+    });
+    it('returns a correctly formatted buffer from a NoSuchObject packet', function () {
+      var correct = '302c 0201 0104 0770 7269 7661 7465 a01e 0201 0502 0106 0201 0730 1330 1106 0d2b 0601 0401 9478 0102 0703 0200 8000'.replace(/ /g, '');
+      var pkt = new snmp.Packet(); // A default getrequest
+      pkt.community = 'private';
+      pkt.pdu.reqid = 5;
+      pkt.pdu.error = 6;
+      pkt.pdu.errorIndex = 7;
+      pkt.pdu.varbinds = [{
+        type: 0x80,
+        oid: [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0]
+      }];
+      var msg = snmp.encode(pkt);
+      assert.equal(msg.toString('hex'), correct);
+    });
+    it('returns a correctly formatted buffer from a NoSuchInstance packet', function () {
+      var correct = '302c 0201 0104 0770 7269 7661 7465 a01e 0201 0502 0106 0201 0730 1330 1106 0d2b 0601 0401 9478 0102 0703 0200 8100'.replace(/ /g, '');
+      var pkt = new snmp.Packet(); // A default getrequest
+      pkt.community = 'private';
+      pkt.pdu.reqid = 5;
+      pkt.pdu.error = 6;
+      pkt.pdu.errorIndex = 7;
+      pkt.pdu.varbinds = [{
+        type: 0x81,
+        oid: [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0]
+      }];
+      var msg = snmp.encode(pkt);
+      assert.equal(msg.toString('hex'), correct);
+    });
+    it('returns a correctly formatted buffer from a NoSuchObject packet', function () {
+      var correct = '302c 0201 0104 0770 7269 7661 7465 a01e 0201 0502 0106 0201 0730 1330 1106 0d2b 0601 0401 9478 0102 0703 0200 8200'.replace(/ /g, '');
+      var pkt = new snmp.Packet(); // A default getrequest
+      pkt.community = 'private';
+      pkt.pdu.reqid = 5;
+      pkt.pdu.error = 6;
+      pkt.pdu.errorIndex = 7;
+      pkt.pdu.varbinds = [{
+        type: 0x82,
+        oid: [1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0]
+      }];
+      var msg = snmp.encode(pkt);
+      assert.equal(msg.toString('hex'), correct);
+    });
+  });
 
-    describe('parse()', function () {
-        it('throws a parse error for invalid packets', function (done) {
-            try {
-                snmp.parse(new Buffer('00112233445566', 'hex'));
-            } catch (err) {
-                done();
-            }
-        });
-        it('returns a snmp.Packet structure', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal('Packet', pkt.constructor.name);
-        });
-        it('returns a correct SNMP version field', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal(0x47, pkt.version);
-        });
-        it('returns a correct SNMP community field', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal('private', pkt.community);
-        });
-        it('returns a correct pdu type field', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal(4, pkt.pdu.type);
-        });
-        it('returns a correct request id field', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal(0x33, pkt.pdu.reqid);
-        });
-        it('returns a correct error field', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal(0x44, pkt.pdu.error);
-        });
-        it('returns a correct error index field', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal(0x55, pkt.pdu.errorIndex);
-        });
-        it('returns a correct varbind list', function () {
-            var pkt = snmp.parse(ex1);
-            assert.equal(1, pkt.pdu.varbinds.length);
-            assert.deepEqual([1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0], pkt.pdu.varbinds[0].oid);
-            assert.equal(5, pkt.pdu.varbinds[0].type); // Null type
-            assert.equal(null, pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed Net-SNMP OctetString GetResponse', function () {
-            var pkt = snmp.parse(ex2);
-            assert.equal(4, pkt.pdu.varbinds[0].type);
-            assert.equal('Solaris anto.nym.se 11.0 physical', pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed Net-SNMP Counter32 GetResponse', function () {
-            var pkt = snmp.parse(ex3);
-            assert.equal(65, pkt.pdu.varbinds[0].type);
-            assert.equal(70, pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed Net-SNMP Counter64 GetResponse', function () {
-            var pkt = snmp.parse(ex4);
-            assert.equal(70, pkt.pdu.varbinds[0].type);
-            assert.equal(341661, pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed Net-SNMP Gauge32 GetResponse', function () {
-            var pkt = snmp.parse(ex5);
-            assert.equal(66, pkt.pdu.varbinds[0].type);
-            assert.equal(1000000000, pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed Net-SNMP TimeTicks GetResponse', function () {
-            var pkt = snmp.parse(ex6);
-            assert.equal(67, pkt.pdu.varbinds[0].type);
-            assert.equal(292076, pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed large OctetString response', function () {
-            var pkt = snmp.parse(ex7);
-            assert.equal(4, pkt.pdu.varbinds[0].type);
-            assert.equal("Darwin jborg-mbp 11.2.0 Darwin Kernel Version 11.2.0: Tue Aug  9 20:54:00 PDT 2011; root:xnu-1699.24.8~1/RELEASE_X86_64 x86_64", pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed ObjectId response', function () {
-            var pkt = snmp.parse(ex8);
-            assert.equal(6, pkt.pdu.varbinds[0].type);
-            assert.deepEqual([1,3,6,1,4,1,8072,3,2,255], pkt.pdu.varbinds[0].value);
-        });
-        it('returns a correctly parsed IpAddress response', function () {
-            var pkt = snmp.parse(ex9);
-            assert.equal(64, pkt.pdu.varbinds[0].type);
-            assert.deepEqual([172,20,10,1], pkt.pdu.varbinds[0].value);
-        });
-        it('does not error out on a random packet', function () {
-            var pkt = snmp.parse(ex10);
-            assert.equal("DocuPrint CM205 f", pkt.pdu.varbinds[0].value);
-            assert.equal("WFG-013475", pkt.pdu.varbinds[1].value);
-        });
+  describe('parse()', function () {
+    it('throws a parse error for invalid packets', function (done) {
+      try {
+        snmp.parse(new Buffer('00112233445566', 'hex'));
+      } catch (err) {
+        done();
+      }
     });
+    it('returns a snmp.Packet structure', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal('Packet', pkt.constructor.name);
+    });
+    it('returns a correct SNMP version field', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal(0x47, pkt.version);
+    });
+    it('returns a correct SNMP community field', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal('private', pkt.community);
+    });
+    it('returns a correct pdu type field', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal(4, pkt.pdu.type);
+    });
+    it('returns a correct request id field', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal(0x33, pkt.pdu.reqid);
+    });
+    it('returns a correct error field', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal(0x44, pkt.pdu.error);
+    });
+    it('returns a correct error index field', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal(0x55, pkt.pdu.errorIndex);
+    });
+    it('returns a correct varbind list', function () {
+      var pkt = snmp.parse(ex1);
+      assert.equal(1, pkt.pdu.varbinds.length);
+      assert.deepEqual([1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0], pkt.pdu.varbinds[0].oid);
+      assert.equal(5, pkt.pdu.varbinds[0].type); // Null type
+      assert.equal(null, pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed Net-SNMP OctetString GetResponse', function () {
+      var pkt = snmp.parse(ex2);
+      assert.equal(4, pkt.pdu.varbinds[0].type);
+      assert.equal('Solaris anto.nym.se 11.0 physical', pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed Net-SNMP Counter32 GetResponse', function () {
+      var pkt = snmp.parse(ex3);
+      assert.equal(65, pkt.pdu.varbinds[0].type);
+      assert.equal(70, pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed Net-SNMP Counter64 GetResponse', function () {
+      var pkt = snmp.parse(ex4);
+      assert.equal(70, pkt.pdu.varbinds[0].type);
+      assert.equal(341661, pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed Net-SNMP Gauge32 GetResponse', function () {
+      var pkt = snmp.parse(ex5);
+      assert.equal(66, pkt.pdu.varbinds[0].type);
+      assert.equal(1000000000, pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed Net-SNMP TimeTicks GetResponse', function () {
+      var pkt = snmp.parse(ex6);
+      assert.equal(67, pkt.pdu.varbinds[0].type);
+      assert.equal(292076, pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed large OctetString response', function () {
+      var pkt = snmp.parse(ex7);
+      assert.equal(4, pkt.pdu.varbinds[0].type);
+      assert.equal("Darwin jborg-mbp 11.2.0 Darwin Kernel Version 11.2.0: Tue Aug  9 20:54:00 PDT 2011; root:xnu-1699.24.8~1/RELEASE_X86_64 x86_64", pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed ObjectId response', function () {
+      var pkt = snmp.parse(ex8);
+      assert.equal(6, pkt.pdu.varbinds[0].type);
+      assert.deepEqual([1,3,6,1,4,1,8072,3,2,255], pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed IpAddress response', function () {
+      var pkt = snmp.parse(ex9);
+      assert.equal(64, pkt.pdu.varbinds[0].type);
+      assert.deepEqual([172,20,10,1], pkt.pdu.varbinds[0].value);
+    });
+    it('does not error out on a random packet', function () {
+      var pkt = snmp.parse(ex10);
+      assert.equal("DocuPrint CM205 f", pkt.pdu.varbinds[0].value);
+      assert.equal("WFG-013475", pkt.pdu.varbinds[1].value);
+    });
+  });
 
-    describe('compareOids()', function () {
-        it('returns zero for two empty OIDs', function () {
-            assert.equal(0, snmp.compareOids([], []));
-        });
-        it('returns in the favour of the non-undefinedOID', function () {
-            assert.equal(1, snmp.compareOids(undefined, []));
-            assert.equal(-1, snmp.compareOids([], undefined));
-        });
-        it('returns in the favour of the non-empty OID', function () {
-            assert.equal(1, snmp.compareOids([], [0]));
-            assert.equal(-1, snmp.compareOids([0], []));
-        });
-        it('returns in the favour of the larger OID', function () {
-            assert.equal(1, snmp.compareOids([1,2,1,2,1,2,1,2], [1,2,1,2,5,2]));
-            assert.equal(-1, snmp.compareOids([1,2,1,2,5,2], [1,2,1,2,1,2,1,2]));
-        });
-        it('returns in the favour of the longer OID', function () {
-            assert.equal(1, snmp.compareOids([1,2,1,2,1,2,1,2], [1,2,1,2,1,2,1,2,1,2]));
-            assert.equal(-1, snmp.compareOids([1,2,1,2,1,2,1,2,1,2,1,2], [1,2,1,2,1,2,1,2]));
-        });
+  describe('compareOids()', function () {
+    it('returns zero for two empty OIDs', function () {
+      assert.equal(0, snmp.compareOids([], []));
     });
+    it('returns in the favour of the non-undefinedOID', function () {
+      assert.equal(1, snmp.compareOids(undefined, []));
+      assert.equal(-1, snmp.compareOids([], undefined));
+    });
+    it('returns in the favour of the non-empty OID', function () {
+      assert.equal(1, snmp.compareOids([], [0]));
+      assert.equal(-1, snmp.compareOids([0], []));
+    });
+    it('returns in the favour of the larger OID', function () {
+      assert.equal(1, snmp.compareOids([1,2,1,2,1,2,1,2], [1,2,1,2,5,2]));
+      assert.equal(-1, snmp.compareOids([1,2,1,2,5,2], [1,2,1,2,1,2,1,2]));
+    });
+    it('returns in the favour of the longer OID', function () {
+      assert.equal(1, snmp.compareOids([1,2,1,2,1,2,1,2], [1,2,1,2,1,2,1,2,1,2]));
+      assert.equal(-1, snmp.compareOids([1,2,1,2,1,2,1,2,1,2,1,2], [1,2,1,2,1,2,1,2]));
+    });
+  });
 });
