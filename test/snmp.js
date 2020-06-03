@@ -23,6 +23,8 @@ var ex9 = new Buffer('30 36 02 01 01 04 07 70 72 69 76 61 74 65 a2 28 02 04 45 2
 // Some random dudes error packet
 var ex10 = new Buffer('30 82 00 61 02 01 01 04 06 70 75 62 6c 69 63 a2 82 00 52 02 04 2a 96 a4 01 02 01 00 02 01 00 30 82 00 42 30 82 00 1f 06 82 00 08 2b 06 01 02 01 01 05 00 04 11 44 6f 63 75 50 72 69 6e 74 20 43 4d 32 30 35 20 66 30 82 00 1b 06 82 00 0b 2b 06 01 02 01 2b 05 01 01 11 01 04 0a 57 46 47 2d 30 31 33 34 37 35'.replace(/ /g, ''), 'hex');
 
+var ex11 = new Buffer('30 82 00 44 02 01 01 04 0d 61 64 6d 69 6e 69 73 74 72 61 74 6f 72 a2 82 00 2e 02 04 4f c3 6a b0 02 01 00 02 01 00 30 82 00 1e 30 82 00 1a 06 10 2b 06 01 04 01 81 a6 45 01 03 02 02 03 04 02 00 40 82 00 04 c0 a8 02 3c'.replace(/ /g, ''), 'hex');
+
 describe('snmp', function () {
   describe('encode()', function () {
     it('returns a correctly formatted buffer from a packet description', function () {
@@ -174,6 +176,11 @@ describe('snmp', function () {
       var pkt = snmp.parse(ex9);
       assert.equal(64, pkt.pdu.varbinds[0].type);
       assert.deepEqual([172,20,10,1], pkt.pdu.varbinds[0].value);
+    });
+    it('returns a correctly parsed IpAddress2 response', function () {
+      var pkt = snmp.parse(ex11);
+      assert.equal(64, pkt.pdu.varbinds[0].type);
+      assert.deepEqual([192,168,2,60], pkt.pdu.varbinds[0].value);
     });
     it('does not error out on a random packet', function () {
       var pkt = snmp.parse(ex10);

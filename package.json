@@ -10,7 +10,7 @@
     "monitoring"
   ],
   "homepage": "https://github.com/neias/snmp-node",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "license": "MIT",
   "main": "lib/snmp.js",
   "scripts": {
