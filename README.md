@@ -1,5 +1,5 @@
 
-snmp-native  [![Build Status](https://travis-ci.org/neias/snmp-node.svg?branch=master)](https://travis-ci.org/neias/snmp-node)
+snmp-node  [![Build Status](https://travis-ci.org/neias/snmp-node.svg?branch=master)](https://travis-ci.org/neias/snmp-node)
 ===========
 
 This is a native SNMP library for Node.js. The purpose is to provide enough
@@ -35,7 +35,7 @@ Documentation
 Installation
 ------------
 
-    $ npm install snmp-native
+    $ npm install snmp-node
 
 Usage
 -----
@@ -43,7 +43,7 @@ Usage
 ### Import
 
 ```javascript
-var snmp = require('snmp-native');
+var snmp = require('snmp-node');
 ```
 
 ### new Session(options)

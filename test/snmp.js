@@ -22,8 +22,10 @@ var ex8 = new Buffer('30 35 02 01 01 04 07 70 72 69 76 61 74 65 a2 27 02 04 e6 3
 var ex9 = new Buffer('30 36 02 01 01 04 07 70 72 69 76 61 74 65 a2 28 02 04 45 20 95 bb 02 01 00 02 01 00 30 1a 30 18 06 10 2b 06 01 02 01 03 01 01 03 04 01 81 2c 14 0a 01 40 04 ac 14 0a 01'.replace(/ /g, ''), 'hex');
 // Some random dudes error packet
 var ex10 = new Buffer('30 82 00 61 02 01 01 04 06 70 75 62 6c 69 63 a2 82 00 52 02 04 2a 96 a4 01 02 01 00 02 01 00 30 82 00 42 30 82 00 1f 06 82 00 08 2b 06 01 02 01 01 05 00 04 11 44 6f 63 75 50 72 69 6e 74 20 43 4d 32 30 35 20 66 30 82 00 1b 06 82 00 0b 2b 06 01 02 01 2b 05 01 01 11 01 04 0a 57 46 47 2d 30 31 33 34 37 35'.replace(/ /g, ''), 'hex');
-
+// PDU device ip error
 var ex11 = new Buffer('30 82 00 44 02 01 01 04 0d 61 64 6d 69 6e 69 73 74 72 61 74 6f 72 a2 82 00 2e 02 04 4f c3 6a b0 02 01 00 02 01 00 30 82 00 1e 30 82 00 1a 06 10 2b 06 01 04 01 81 a6 45 01 03 02 02 03 04 02 00 40 82 00 04 c0 a8 02 3c'.replace(/ /g, ''), 'hex');
+// pdu device
+var ex12 = new Buffer('30 82 00 44 02 01 01 04 0d 61 64 6d 69 6e 69 73 74 72 61 74 6f 72 a2 82 00 2e 02 04 47 6a 90 5c 02 01 00 02 01 00 30 82 00 1e 30 82 00 1a 06 12 2b 06 01 04 01 81 a6 45 01 03 02 02 02 01 03 01 06 01 02 82 00 02 00 f0'.replace(/ /g, ''), 'hex');
 
 describe('snmp', function () {
   describe('encode()', function () {
@@ -105,26 +107,38 @@ describe('snmp', function () {
     it('returns a snmp.Packet structure', function () {
       var pkt = snmp.parse(ex1);
       assert.equal('Packet', pkt.constructor.name);
+      var pkt2 = snmp.parse(ex12);
+      assert.equal('Packet', pkt2.constructor.name);
     });
     it('returns a correct SNMP version field', function () {
       var pkt = snmp.parse(ex1);
       assert.equal(0x47, pkt.version);
+      var pkt2 = snmp.parse(ex12);
+      assert.equal(0x01, pkt2.version);
     });
     it('returns a correct SNMP community field', function () {
       var pkt = snmp.parse(ex1);
       assert.equal('private', pkt.community);
+      var pkt2 = snmp.parse(ex12);
+      assert.equal('administrator', pkt2.community);
     });
     it('returns a correct pdu type field', function () {
       var pkt = snmp.parse(ex1);
       assert.equal(4, pkt.pdu.type);
+      var pkt2 = snmp.parse(ex12);
+      assert.equal(2, pkt2.pdu.type);
     });
     it('returns a correct request id field', function () {
       var pkt = snmp.parse(ex1);
       assert.equal(0x33, pkt.pdu.reqid);
+      var pkt2 = snmp.parse(ex12);
+      assert.equal(0x476A905C, pkt2.pdu.reqid);
     });
     it('returns a correct error field', function () {
       var pkt = snmp.parse(ex1);
       assert.equal(0x44, pkt.pdu.error);
+      var pkt2 = snmp.parse(ex12);
+      assert.equal(0x00, pkt2.pdu.error);
     });
     it('returns a correct error index field', function () {
       var pkt = snmp.parse(ex1);
@@ -136,6 +150,13 @@ describe('snmp', function () {
       assert.deepEqual([1, 3, 6, 1, 4, 1, 2680, 1, 2, 7, 3, 2, 0], pkt.pdu.varbinds[0].oid);
       assert.equal(5, pkt.pdu.varbinds[0].type); // Null type
       assert.equal(null, pkt.pdu.varbinds[0].value);
+
+      var pkt2 = snmp.parse(ex12);
+      assert.equal(1, pkt2.pdu.varbinds.length);
+      assert.deepEqual([1, 3, 6, 1, 4, 1, 21317, 1, 3, 2, 2, 2, 1, 3, 1, 6, 1], pkt2.pdu.varbinds[0].oid);
+      assert.equal(2, pkt2.pdu.varbinds[0].type); // integer type
+      assert.equal(240, pkt2.pdu.varbinds[0].value);
+
     });
     it('returns a correctly parsed Net-SNMP OctetString GetResponse', function () {
       var pkt = snmp.parse(ex2);
